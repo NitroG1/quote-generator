@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quote Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Random Quote Generator</h1>
+    <p id="quote" class="fade show" role="status" aria-live="polite">Loading…</p>
+    <div class="filter">
+      <label for="author-filter">Author (optional):</label>
+      <input id="author-filter" type="text" placeholder="e.g., Oscar Wilde" autocomplete="off" />
+      <small id="author-hint">Leave blank for any author.</small>
+    </div>
+    <button id="new-quote" aria-label="Show a new random quote">New Quote</button>
+    <button id="save-fav">Save ★</button>
+    <button id="copy-quote" aria-label="Copy quote">Copy</button>
+    <a id="tweet-quote" aria-label="Tweet quote" href="#" target="_blank" rel="noopener">Tweet</a>
+    <button id="open-fav">View Favorites</button>
+    <button id="theme-toggle" aria-label="Toggle theme">🌙 Dark</button>
+  </div>
+  <div id="favorites-modal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="fav-title">
+    <div class="modal-card">
+      <h2 id="fav-title">Favorites</h2>
+      <ul id="favorites-list"></ul>
+      <button id="close-fav">Close</button>
+      <button id="clear-fav">Clear All</button>
+    </div>
+  </div>
+  <!-- Keep script at the end so elements exist when JS runs -->
+  <script src="script.js"></script>
+</body>
+</html>

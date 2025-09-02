@@ -1,0 +1,190 @@
+/* CSS Variables and Theme System */
+:root {
+  --bg: #f4f7fb;
+  --card-bg: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --button-bg: #e2e8f0;
+  --button-text: #0f172a;
+  --accent: #2563eb;
+  --overlay: rgba(0,0,0,0.45);
+  --shadow: 0 10px 35px rgba(0,0,0,.08);
+}
+
+html[data-theme="dark"] {
+  --bg: #0b1220;
+  --card-bg: #0f172a;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --button-bg: #1e293b;
+  --button-text: #e2e8f0;
+  --accent: #60a5fa;
+  --overlay: rgba(0,0,0,0.55);
+  --shadow: 0 12px 40px rgba(0,0,0,.35);
+}
+
+/* Page baseline */
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    transition: background .25s, color .25s;
+  }
+  
+  /* White card container */
+  .container {
+    text-align: center;
+    background: var(--card-bg);
+    padding: 2.25rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    max-width: 680px;
+    margin: 0 1rem;
+    transition: background .25s, box-shadow .25s;
+  }
+  
+  /* Quote text */
+  #quote {
+    line-height: 1.6;
+    font-size: 1.15rem;
+    margin-top: 0.75rem;
+    min-height: 3.2em; /* keeps box stable during fade */
+    color: var(--text);
+  }
+  
+  /* Button styles */
+  button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background: var(--button-bg);
+    color: var(--button-text);
+    transition: background .25s, color .25s, transform .15s;
+  }
+  button:hover {
+    transform: translateY(-1px);
+  }
+  
+  a#tweet-quote { 
+    text-decoration: underline; 
+  }
+  
+  /* Filter styles */
+  .filter {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-wrap: wrap;
+    margin: .5rem 0 1rem;
+    color: var(--muted);
+  }
+  
+  .filter label { 
+    font-weight: 600; 
+    color: var(--text); 
+  }
+  
+  .filter input {
+    padding: .5rem .6rem;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: var(--card-bg);
+    color: var(--text);
+  }
+  
+  .filter small { 
+    opacity: .8; 
+  }
+  
+  /* Fade classes (Fix A: duration controlled here) */
+  .fade {
+    --fade-duration: 4s;  /* Adjust: 1s, 2s, 5s, etc. */
+    opacity: 0;
+    transition: opacity var(--fade-duration) ease;
+  }
+  .fade.show {
+    opacity: 1;
+  }
+  
+  /* Modal and favorites styles */
+  /* hide helper */
+  .hidden { 
+    display: none !important; 
+  }
+
+  /* overlay container */
+  #favorites-modal {
+    position: fixed;
+    inset: 0;                         /* top:0; right:0; bottom:0; left:0 */
+    display: none;                    /* hidden by default */
+    align-items: center;
+    justify-content: center;
+    background: var(--overlay);
+    backdrop-filter: blur(1px);
+    z-index: 1000;                    /* sit above everything */
+    pointer-events: auto;             /* capture clicks */
+  }
+
+  /* visible state toggled by JS */
+  #favorites-modal.is-open { 
+    display: flex; 
+  }
+
+  /* modal card */
+  #favorites-modal .modal-card {
+    background: var(--card-bg);
+    color: var(--text);
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
+    min-width: 280px;
+    max-width: min(560px, 90vw);
+    box-shadow: var(--shadow);
+    transition: background .25s, color .25s;
+  }
+
+  /* page shouldn't scroll under modal */
+  body.modal-open {
+    overflow: hidden;
+  }
+
+  /* buttons underlay (page) remain lower than overlay */
+  #app, .card, .controls, .buttons { 
+    position: relative; 
+    z-index: 1; 
+  }
+
+  /* optional: dim underlying controls a touch while modal is open */
+  body.modal-open .controls,
+  body.modal-open .buttons {
+    filter: saturate(.8) brightness(.95);
+  }
+  
+  button[disabled] {
+    opacity: .6;
+    cursor: not-allowed;
+  }
+  
+  #favorites-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: .5rem;
+    padding: .25rem 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* Respect user's OS theme for first visit if no saved choice */
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]):not([data-theme="dark"]) {
+      color-scheme: dark;
+    }
+  }
+  
+   
